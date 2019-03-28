@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-8">
+				<h1 class="text-primary" th:text="${titulo}"></h1>
+				<hr>
+				<form class="form-group" th:action="@{/guardarAlumno}"
+					th:object="${alumno}" method="post">
+					<div class="form-group row">
+						<label class="col-sm-2 form-label-group">Matricula</label>
+						<div class="col-md-6">
+							<input type="text" th:field="*{id}" class="form-control" /> <small
+								class="form-text text-danger" th:if="${#fields.hasErrors('id')}"
+								th:errors="*{id}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row ">
+						<label class="col-sm-2 form-label-group">Nombre</label>
+						<div class="col-md-6">
+							<input type="text" th:field="*{nombre}" class="form-control" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 form-label-group">Apellidos</label>
+						<div class="col-md-6">
+							<input type="text" th:field="*{apellido}" class="form-control" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-2 form-label-group">Nombre Grupo</label>
+						<div class="col-md-6">
+							<input type="text" th:value="${alumno.grupo.nombre}"
+								disabled="disabled" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 form-label-group">Id de grupo</label>
+						<div class="col-md-6">
+							<input type="text" th:field="*{grupo}" th:value="${alumno.grupo.id}"
+								 class="form-control" />
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-outline-success">
+						<i class="far fa-save"></i>Guardar
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</html>

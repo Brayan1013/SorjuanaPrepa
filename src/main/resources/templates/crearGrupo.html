@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<hr>
+		<div class="row m-3">
+			<h1 class="text-primary" th:text="${titulo}"></h1>
+			<hr>
+			<div class="col-md-7">
+				<form th:action="@{/crearGrupo}" th:object="${grupo}" method="POST">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Nombre:</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{nombre}" class="form-control" />
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Semestre:</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{semestre}" class="form-control" />
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('semestre')}" th:errors="*{semestre}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Ciclo:</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{ciclo}" class="form-control" />
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('ciclo')}" th:errors="*{ciclo}"></small>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-outline-primary">
+					<i class="fas fa-save"></i>
+					Guardar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<footer th:replace="layout/layout :: footer"></footer>
+</html>

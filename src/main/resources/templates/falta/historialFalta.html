@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="row mt-4">
+			<div class="col-md-12">
+				<h1 class="text-center text-primary">Historial de reportes</h1>
+				<h2 class="text-center text-primary"
+					th:text="'Alumno: ' + ${alumno.nombre} + ' ' + ${alumno.apellido}"></h2>
+				<hr class="bg-danger">
+			</div>
+		</div>
+		<div class="row mt-2 pt-2">
+			<div class="col-md-12">
+				<div th:if="${#lists.isEmpty(faltas)}"
+					class="alert alert-info my-4"
+					th:text="'El alumno ' + ${alumno.nombre} + ' ' + 'no tiene faltas o retardos'"></div>
+				<table th:if="${!#lists.isEmpty(faltas)}" class="table table-striped">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">Ciclo</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Grupo</th>
+							<th scope="col">Hora</th>
+							<th scope="col">Tipo</th>
+							<th scope="col">Acción</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="text-center" th:each="falta: ${faltas}">
+							<td th:text="${falta.ciclo}"></td>
+							<td th:text="${falta.fecha}"></td>
+							<td th:text="${falta.grupo}"></td>
+							<td th:text="${falta.hora}"></td>
+							<td th:text="${falta.tipo}"></td>
+							<td><a class="btn btn-warning" th:href="@{/alumno/editar/} + ${falta.id}">Editar</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<footer th:replace="layout/layout :: footer"></footer>
+								</html>

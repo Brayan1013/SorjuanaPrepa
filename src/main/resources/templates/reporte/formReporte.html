@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+
+			<div class="col-md-8 mt-3 text-center">
+				<h1 class="text-primary">Crear un nuevo reporte</h1>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-10">
+				<div class="card">
+					<div class="card-header bg-dark text-white">Crear un nuevo
+						reporte</div>
+					<div class="card-body bg-light">
+						<form th:action="@{/alumno/formReporte}" th:object="${reporte}"
+							method="post">
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Nombre del
+									catedratico:</label>
+								<div class="col-md-6">
+									<input th:field="*{catedratico}" type="text"
+										class="form-control" /> <small class="form-text text-danger"
+										th:if="${#fields.hasErrors('catedratico')}"
+										th:errors="*{catedratico}"></small>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Materia:</label>
+								<div class="col-md-6">
+									<input th:field="*{materia}" type="text" class="form-control" /><small
+										class="form-text text-danger"
+										th:if="${#fields.hasErrors('materia')}" th:errors="*{materia}"></small>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Fecha:</label>
+								<div class="col-md-6">
+									<input th:field="*{fecha}" placeholder="dd/MM/YYYY" type="text"
+										class="form-control" /><small class="form-text text-danger"
+										th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></small>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Hora:</label>
+								<div class="col-md-6">
+									<input th:field="*{hora}" type="text" class="form-control" /><small
+										class="form-text text-danger"
+										th:if="${#fields.hasErrors('hora')}" th:errors="*{hora}"></small>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Nombre del
+									alumno</label>
+								<div class="col-md-6">
+									<input type="text"
+										th:value="${reporte.alumno.nombre} + ' ' + ${reporte.alumno.apellido}"
+										class="form-control" disabled />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-sm-3 form-label-group">Incidencia</label>
+								<div class="col-md-6">
+									<input th:field="*{incidencia}" type="text"
+										class="form-control" /><small class="form-text text-danger"
+										th:if="${#fields.hasErrors('incidencia')}"
+										th:errors="*{incidencia}"></small>
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-md-6">
+									<input type="hidden" th:value="${reporte.alumno.grupo.semestre}"
+										th:attr="name='semestre'" class="form-control" />
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-md-6">
+									<input type="hidden" th:value="${reporte.alumno.grupo.ciclo} "
+										class="form-control" th:attr="name='ciclo'"  />
+								</div>
+							</div>
+							
+							
+							<div class="form-group row">
+								<div class="col-md-6">
+									<input type="hidden" th:value="${reporte.alumno.grupo.nombre} "
+										class="form-control" th:attr="name='grupo'" />
+								</div>
+							</div>
+
+							<button class="btn btn-danger">
+								<i class="fas fa-save"></i> Guardar
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<footer th:replace="layout/layout :: footer"></footer>
+</html>

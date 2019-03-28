@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="jumbotron jumbotron-fluid text-center mt-2">
+					<div class="container">
+						<h1 th:text="${alumno.nombre} + ' ' + ${alumno.apellido}"
+							class="display-4 text-danger">Fluid jumbotron</h1>
+						<hr>
+						<p
+							th:text="'Matricula:' + ${alumno.id} + '  ' + ' Nombre de grupo:' + 
+						${alumno.grupo.nombre} + ' ' + ' Semestre:' + ${alumno.grupo.semestre} "
+							class="lead text-primary"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<a th:href="@{/alumno/formReporte/} + ${alumno.id}"
+					class="btn btn-danger"><i class="far fa-address-card"></i>
+					Reportes </a> <a th:href="@{/alumno/falta/} + ${alumno.id}"
+					class="btn btn-warning"><i class="fas fa-clipboard-list"></i>
+					Faltas </a> <a onclick="saludar()" class="btn btn-info"><i class="fas fa-brain"></i>
+					Psicologia </a>
+			</div>
+
+			<div class="col-md-4">
+				<a th:href="@{/eliminarAlumno/} + ${alumno.id}"
+					onclick="return confirm('Estas seguro que quieres eliminar');"
+					class="btn btn-light"><i class="fas fa-user-times"></i>
+					Eliminar alumno </a> <a th:href="@{/editarAlumno/} + ${alumno.id}"
+					class="btn btn-light"><i class="fas fa-user-edit"></i> Editar
+					alumno </a>
+			</div>
+		</div>
+
+		<!-- Accordion -->
+		<div class="row pt-5">
+			<div class="col-md-12">
+				<div class="accordion" id="accordionExample">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h2 class="mb-0">
+								<button class="btn btn-link" type="button"
+									data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne">
+									Reportes del alumno</button>
+							</h2>
+						</div>
+
+						<div id="collapseOne" class="collapse show"
+							aria-labelledby="headingOne" data-parent="#accordionExample">
+							<div class="card-body">
+								<table class="table">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col">Fecha</th>
+											<th scope="col">Catedratico</th>
+											<th scope="col">Materia</th>
+											<th scope="col">Acción</th>
+											<th scope="col">PDF</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="reporte: ${reportes}">
+											<td th:text="${reporte.fecha}"></td>
+											<td th:text="${reporte.catedratico}"></td>
+											<td th:text="${reporte.materia}"></td>
+											<td><a class="btn btn-outline-success"
+												th:href="@{'/alumno/detallesReporte/' + ${reporte.id}}">
+													<i class="fas fa-info-circle"></i> Ver detalles
+											</a></td>
+											<td><a target="_blank" class="btn btn-danger"
+												th:href="@{'/alumno/detallesReporte/' + ${reporte.id}(format=pdf)}">
+													<i class="fas fa-file-pdf"></i> PDF
+											</a></td>
+										</tr>
+									</tbody>
+								</table>
+								<a class="btn btn-info"
+									th:href="@{/alumno/historial/} + ${alumno.id}"> <i
+									class="fas fa-history"></i> Ver historial completo
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header" id="headingTwo">
+							<h2 class="mb-0">
+								<button
+									th:text="'Faltas y retardos durante el ciclo ' + ${alumno.grupo.ciclo}"
+									class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapseTwo"
+									aria-expanded="false" aria-controls="collapseTwo"></button>
+							</h2>
+						</div>
+						<div id="collapseTwo" class="collapse"
+							aria-labelledby="headingTwo" data-parent="#accordionExample">
+							<div class="card-body">
+								<div class="col-md-6">
+									<p class="text-danger"
+										th:text="'Numero de Faltas: ' + ${faltas}"></p>
+									<p class="text-danger"
+										th:text="'Numero de Retardos: ' + ${retardos}"></p>
+								</div>
+								<a class="btn btn-info"
+									th:href="@{/alumno/historialFaltas/} + ${alumno.id}"> <i
+									class="fas fa-history"></i> Ver historial completo
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Termina el accordion -->
+
+
+	</div>
+</body>
+<footer th:replace="layout/layout :: footer">
+</footer>
+</html>

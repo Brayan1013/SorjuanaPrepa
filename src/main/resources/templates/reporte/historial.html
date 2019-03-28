@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container">
+		<div class="row mt-4">
+			<div class="col-md-12">
+				<h1 class="text-center text-primary">Historial de reportes</h1>
+				<h2 class="text-center text-primary"
+					th:text="'Alumno: ' + ${alumno.nombre} + ' ' + ${alumno.apellido}"></h2>
+				<hr class="bg-danger">
+			</div>
+		</div>
+		<div class="row mt-2 pt-2">
+			<div class="col-md-12">
+			<div th:if="${#lists.isEmpty(reportes)}"
+					class="alert alert-info my-4"
+					th:text="'El alumno ' + ${alumno.nombre} + ' ' + 'no tiene reportes'"></div>
+				<table th:if="${!#lists.isEmpty(reportes)}" class="table table-striped">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">Catedrático</th>
+							<th scope="col">Ciclo</th>
+							<th scope="col">Fecha(AÑO-MES-DÍA)</th>
+							<th scope="col">Grupo</th>
+							<th scope="col">Materia</th>
+							<th scope="col">Semestre</th>
+							<th scope="col">Incidencia</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="text-center" th:each="reporte: ${reportes}">
+							<td th:text="${reporte.catedratico}"></td>
+							<td th:text="${reporte.ciclo}"></td>
+							<td th:text="${reporte.fecha}"></td>
+							<td th:text="${reporte.grupo}"></td>
+							<td th:text="${reporte.materia}"></td>
+							<td th:text="${reporte.semestre}"></td>
+							<td th:text="${reporte.incidencia}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+<footer th:replace="layout/layout :: footer"></footer>
+								</html>
